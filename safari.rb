@@ -87,7 +87,7 @@ module Safari
 
     def bookmark_to_hash(bookmark)
       return {"URIDictionary" => {"title" => bookmark.name},
-      "URLString" => bookmark.url, "WebBookmarkType" => "WebBookmarkTypeLeaf", "WebBookmakUUID" => bookmark.respond_to?(:uuid) ? bookmark.uuid : Apple.new_uuid}
+      "URLString" => bookmark.url, "WebBookmarkType" => "WebBookmarkTypeLeaf", "WebBookmarkUUID" => (bookmark.respond_to?(:uuid) and bookmark.uuid) ? bookmark.uuid : Apple.new_uuid}
     end
 
     def bookmark_to_cache_hash(bookmark)
