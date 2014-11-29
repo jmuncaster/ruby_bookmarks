@@ -2,6 +2,27 @@ require 'cfpropertylist'
 
 module Safari
   class SafariProvider
+
+    def debug_print_root(data)
+      puts "Examining root node"
+      puts "  Fields:"
+      data.keys.each do |key|
+        puts "    #{key}"
+      end
+
+      puts "  Root children:"
+      root_children = data["Children"]
+      root_children.each do |root|
+        type = root["WebBookmarkType"]
+        if type.eql? "WebBookmarkTypeLeaf"
+          name = root["URIDictionary"]["title"]
+        else
+          name = root["Title"]
+        end
+        puts "    #{name}  (#{root["WebBookmarkType"]})"
+      end
+    end
+
     def load(filename='~/Library/Safari/Bookmarks.plist')
       if filename.include? '~'
         filename.gsub!('~', ENV["HOME"])
