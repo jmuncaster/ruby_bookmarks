@@ -25,9 +25,9 @@ class Folder
         if (item.respond_to?(:url)) # we've got a url
           # TODO only checking folder name
           # should compare folder contents as well
-          self.children.push(item) unless self.contains_url item.url
+          self.children.push(item) # unless self.contains_url item.url
         else # a folder
-          self.children.push(item) unless self.contains_folder item.name
+          self.children.push(item) # unless self.contains_folder item.name
         end
       end
     end
@@ -36,9 +36,9 @@ class Folder
   def add_from_array(arr)
     arr.each do |item|
       if (item.respond_to?(:url)) # we've got a url
-        self.children.push(item) unless self.contains_url item.url
+        self.children.push(item) #unless self.contains_url item.url
       else # a folder
-        self.children.push(item) unless self.contains_folder item.name
+        self.children.push(item) #unless self.contains_folder item.name
       end
     end
   end
@@ -50,7 +50,7 @@ class Folder
         yield item
       end
     end
-  end 
+  end
 
   def remove_empty_folders
     to_remove = []
