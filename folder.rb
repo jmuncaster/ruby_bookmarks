@@ -5,6 +5,10 @@ class Folder
     @children = []
   end
 
+  def clear
+    @children = []
+  end
+
   def contains_url(url)
     @children.each do |child|
       return true if child.respond_to?(:url) && child.url == url
@@ -62,6 +66,16 @@ class Folder
     end
     puts "  Removed #{to_remove.length} folders" if !to_remove.empty?
     @children = @children - to_remove
+  end
+
+  def build_folder_hash(folder_hash)
+    @children.each do |item|
+      if not item.respond_to?(:url)  # Folder?
+        folder_hash[item.name] = [] if not folder_hash.keys.include?(item.name)
+        folder_hash[item.name].push item
+        item.build_folder_hash folder_hash
+      end
+    end
   end
 
   def to_s(indent=0)
