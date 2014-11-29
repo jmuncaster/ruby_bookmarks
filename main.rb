@@ -9,11 +9,10 @@ require './safari'
 include Chrome
 include Safari
 
-#bc = BookmarkCollection.new([ChromeProvider.new, SafariProvider.new])
-bc = BookmarkCollection.new([SafariProvider.new])
-bc.load # Loads in all bookmarks from Safari & Chrome
+bc = BookmarkCollection.new([SafariProvider.new, ChromeProvider.new])
 
-puts bc
+# Load bookmarks from the first provider
+bc.load_first
 
 puts "Merging folders of the same name"
 bc.merge_folders

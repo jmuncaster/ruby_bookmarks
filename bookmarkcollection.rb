@@ -15,7 +15,12 @@ class BookmarkCollection
     end
   end
 
-  def save
+  def load_first
+    res = @providers.first.load
+    @bookmarks_bar.add_from_folder res["bar"]
+    @other.add_from_folder res["other"]
+  end
+
   def save(dry_run=true)
     @providers.each do |provider|
       provider.save self, dry_run
