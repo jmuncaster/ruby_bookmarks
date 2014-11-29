@@ -128,7 +128,7 @@ module Safari
       plist = CFPropertyList::List.new
       plist.value = CFPropertyList.guess(outline) # data is native ruby structure
 
-      dry_run = true
+      dry_run = false
       plist.save(filename, CFPropertyList::List::FORMAT_BINARY) unless dry_run
     end
 
