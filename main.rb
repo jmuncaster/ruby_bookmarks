@@ -13,17 +13,7 @@ include Safari
 bc = BookmarkCollection.new([SafariProvider.new])
 bc.load # Loads in all bookmarks from Safari & Chrome
 
-#bc.bookmarks_bar.each do |item|
-#    #iterates through the bookmark bar
-#end
-
-#bc.other.each do |item|
-#  #iterates through the other bookmarks
-#end
-
-#bc.all do |item|
-#  puts item.to_s
-#end
+puts bc
 
 puts "Merging folders of the same name"
 bc.merge_folders
