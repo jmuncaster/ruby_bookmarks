@@ -78,6 +78,54 @@ class BookmarkCollection
     self.build_folder_hash
   end
 
+  def build_bookmarks_hash
+    bookmarks_hash = {}
+    @bookmarks_bar.build_bookmarks_hash bookmarks_hash
+    @other.build_bookmarks_hash bookmarks_hash
+
+    dups_bookmarks_hash = {}
+    bookmarks_hash.keys.each do |key|
+      if bookmarks_hash[key].length > 1
+        dups_bookmarks_hash[key] = bookmarks_hash[key]
+      end
+    end
+
+    puts "  Duplicate bookmarks:" unless dups_bookmarks_hash.empty?
+    dups_bookmarks_hash.keys.each do |key|
+      puts "  #{key}: #{dups_bookmarks_hash[key].length} dups"
+    end
+
+    @bookmarks_hash = dups_bookmarks_hash
+  end
+
+  def merge_bookmarks
+    self.build_bookmarks_hash
+    puts "  Merging bookmarks" unless @bookmarks_hash.empty?
+
+    @bookmarks_hash.keys.each do |key|
+      name = key[:name]
+      url = key[:url]
+
+      folders = @bookmarks_hash[key]
+
+      if folders.length > 1
+        merged = folders[0]
+
+        puts "  Merging #{name} (#{url}) into ''#{merged.name}''"
+
+        others = folders.slice(1, folders.length - 1)
+        others.each do |other|
+          puts "    Removing item from folder."
+          other.remove_one name, url
+        end
+
+        puts "  Removed #{name} from all other folders."
+      end
+    end
+
+    self.build_bookmarks_hash
+  end
+
   def to_s
     @bookmarks_bar.to_s + "\n" + @other.to_s
   end

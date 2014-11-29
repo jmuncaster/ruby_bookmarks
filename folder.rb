@@ -78,6 +78,23 @@ class Folder
     end
   end
 
+  def build_bookmarks_hash(bookmark_hash)
+    @children.each do |item|
+      if item.respond_to?(:url)  # URL?
+        key = {:name => item.name, :url => item.url}
+        bookmark_hash[key] = [] if not bookmark_hash.keys.include?(key)
+        bookmark_hash[key].push self
+      else
+        item.build_bookmarks_hash bookmark_hash
+      end
+    end
+  end
+
+  def remove_one(name, url)
+    last_index = @children.rindex { |child| child.respond_to?(:url) and child.url == url and child.name == name }
+    @children.delete_at(last_index)
+  end
+
   def to_s(indent=0)
     #puts "In Folder::to_s. I have #{@children.length} children."
     spaces = " " * indent

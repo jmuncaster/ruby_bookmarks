@@ -26,8 +26,10 @@ bc.load # Loads in all bookmarks from Safari & Chrome
 #end
 
 puts "Merging folders of the same name"
-bc.build_folder_hash
 bc.merge_folders
+
+puts "Merging bookmarks of the same name"
+bc.merge_bookmarks
 
 puts "Removing empty folders"
 bc.remove_empty_folders
