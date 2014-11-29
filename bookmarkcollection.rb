@@ -126,6 +126,11 @@ class BookmarkCollection
     self.build_bookmarks_hash
   end
 
+  def sort!
+    @bookmarks_bar.sort!
+    @other.sort!
+  end
+
   def to_s
     @bookmarks_bar.to_s + "\n" + @other.to_s
   end

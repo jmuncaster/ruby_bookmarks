@@ -24,6 +24,9 @@ bc.merge_bookmarks
 puts "Removing empty folders"
 bc.remove_empty_folders
 
+puts "Sorting result"
+bc.sort!
+
 puts "Saving"
 #puts bc
 bc.save # Saves the combined bookmarks both Chrome and Safari

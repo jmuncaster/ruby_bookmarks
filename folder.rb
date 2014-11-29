@@ -95,6 +95,22 @@ class Folder
     @children.delete_at(last_index)
   end
 
+  def sort!
+    @children.sort! do |x,y|
+      if x.respond_to?(:url) and not y.respond_to?(:url)
+        -1
+      elsif y.respond_to?(:url) and not x.respond_to?(:url)
+        1
+      else
+        x.name.casecmp(y.name)
+      end
+    end
+
+    @children.each do |item|
+      item.sort! if not item.respond_to?(:url)
+    end
+  end
+
   def to_s(indent=0)
     #puts "In Folder::to_s. I have #{@children.length} children."
     spaces = " " * indent
