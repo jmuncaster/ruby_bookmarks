@@ -19,6 +19,11 @@ class BookmarkCollection
     res = @providers.first.load
     @bookmarks_bar.add_from_folder res["bar"]
     @other.add_from_folder res["other"]
+
+    others = @providers.slice(1, providers.length - 1)
+    others.each do |provider|
+      provider.load
+    end
   end
 
   def save(dry_run=true)
