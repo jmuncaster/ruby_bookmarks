@@ -51,4 +51,27 @@ class Folder
       end
     end
   end 
+
+  def remove_empty_folders
+    to_remove = []
+    @children.each do |item|
+      if not item.respond_to?(:url)
+        item.remove_empty_folders  # recurse
+        to_remove.push item if item.children.empty?
+      end
+    end
+    puts "  Removed #{to_remove.length} folders" if !to_remove.empty?
+    @children = @children - to_remove
+  end
+
+  def to_s(indent=0)
+    #puts "In Folder::to_s. I have #{@children.length} children."
+    spaces = " " * indent
+    strings = ["#{spaces}#{@name}/  (#{@children.length} children)"]
+    @children.each do |child|
+      strings.push(child.to_s(indent + 2))
+    end
+    strings.join("\n")
+  end
+
 end

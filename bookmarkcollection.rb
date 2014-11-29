@@ -24,5 +24,10 @@ class BookmarkCollection
   def all(&block)
     @bookmarks_bar.all_children &block
     @other.all_children &block  
+  def remove_empty_folders
+    @bookmarks_bar.remove_empty_folders
+    @other.remove_empty_folders
+  end
+
   end
 end
