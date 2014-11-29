@@ -122,8 +122,10 @@ module Safari
         hash["Children"].each do |item|
           if item["WebBookmarkType"] == "WebBookmarkTypeList"
             folder.children.push(self.new_from_hash(item))
-          elsif item["type"] == "WebBookmarkTypeLeaf"
+          elsif item["WebBookmarkType"] == "WebBookmarkTypeLeaf"
             folder.children.push(SafariBookmark.new_from_hash(item))
+          else
+            puts "Unknown item: #{item}"
           end
         end
       end
