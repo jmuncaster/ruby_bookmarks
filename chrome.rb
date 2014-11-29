@@ -12,7 +12,7 @@ module Chrome
       return {"bar" => bookmarks_bar, "other" => other}
     end
 
-    def save(collection, filename='~/Library/Application Support/Google/Chrome/Default/Bookmarks')
+    def save(collection, dry_run, filename='~/Library/Application Support/Google/Chrome/Default/Bookmarks')
       if filename.include? '~'
         filename.gsub!('~', ENV["HOME"])
       end
@@ -23,9 +23,8 @@ module Chrome
       ret["roots"]["bookmark_bar"] = folder_to_hash(collection.bookmarks_bar)
       ret["roots"]["other"] = folder_to_hash(collection.other)
 
-      dry_run = true
       if dry_run
-        puts "Dry run"
+        puts "(skipped save to Chrome - dry run)"
       else
         File.open(filename, 'w') do |file|
           file.puts(ret.to_json)

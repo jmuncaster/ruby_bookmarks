@@ -16,8 +16,9 @@ class BookmarkCollection
   end
 
   def save
+  def save(dry_run=true)
     @providers.each do |provider|
-      provider.save(self)
+      provider.save self, dry_run
     end
   end
 

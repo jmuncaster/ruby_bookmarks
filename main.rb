@@ -28,5 +28,5 @@ puts "Sorting result"
 bc.sort!
 
 puts "Saving"
-#puts bc
-bc.save # Saves the combined bookmarks both Chrome and Safari
+dry_run = true
+bc.save dry_run

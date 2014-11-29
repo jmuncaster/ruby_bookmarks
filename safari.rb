@@ -89,7 +89,7 @@ module Safari
       return {"bar" => bookmarks_bar, "other" => other_root}
     end
 
-    def save(collection, filename='~/Library/Safari/Bookmarks.plist')
+    def save(collection, dry_run, filename='~/Library/Safari/Bookmarks.plist')
 
       if filename.include? '~'
         filename.gsub!('~', ENV["HOME"])
@@ -128,8 +128,7 @@ module Safari
       plist = CFPropertyList::List.new
       plist.value = CFPropertyList.guess(outline) # data is native ruby structure
 
-      dry_run = true
-      puts "Dry run" if dry_run
+      puts "(skipped save to Safari - dry run)" if dry_run
       plist.save(filename, CFPropertyList::List::FORMAT_BINARY) unless dry_run
     end
 
