@@ -22,8 +22,14 @@ module Chrome
       ret["roots"] = Hash.new
       ret["roots"]["bookmark_bar"] = folder_to_hash(collection.bookmarks_bar)
       ret["roots"]["other"] = folder_to_hash(collection.other)
-      File.open(filename, 'w') do |file|  
-        file.puts(ret.to_json)
+
+      dry_run = true
+      if dry_run
+        puts "Dry run"
+      else
+        File.open(filename, 'w') do |file|
+          file.puts(ret.to_json)
+        end
       end
     end
 
@@ -90,5 +96,5 @@ module Chrome
       end
       return folder
     end
-  end 
+  end
 end
